@@ -35,17 +35,22 @@ def test_text_in_pdf_file(create_archive):  # проверка, что PDF-фа�
             text = reader.pages[0].extract_text()
             assert 'Пример pdf' in text
 
-def test_text_in_xlsx_file(create_archive): # проверяю, что ячейка содержит значение
+
+def test_text_in_xlsx_file(create_archive):  # проверяю, что ячейки содержат значения
     with zipfile.ZipFile(ARCHIVE_DIR) as zip_file:
-        with zip_file.open('file_xlsx.xlsx') as xlsx:
-            workbook = load_workbook(xlsx)
+        with zip_file.open('file_xlsx.xlsx') as xlsx_file:
+            workbook = load_workbook(xlsx_file)
             sheet = workbook.active
-            first_last = sheet.cell(row=1, column=0).value
-            assert first_last == "OU001"
+            first_title = sheet.cell(row=1, column=3).value
+            second_title = sheet.cell(row=2, column=3).value
+            third_title = sheet.cell(row=7, column=3).value
+            assert first_title == "Название"
+            assert second_title == "Коммерческий департамент"
+            assert third_title == "Закупки"
 
 
 def test_text_in_csv_file(create_archive):  # проверяю, что вторая строка содержит текст
     with zipfile.ZipFile(ARCHIVE_DIR) as zip_file:
         with zip_file.open('file_csv.csv') as csv_file:
             csvreader = list(csv.reader(TextIOWrapper(csv_file, 'utf-8-sig')))
-            assert 'OU001;;������������ �����������' == csvreader[1][0]
+            assert 'Yellow' == csvreader[7][0]

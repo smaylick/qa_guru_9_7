@@ -11,17 +11,17 @@ def test_download_pdf_file():  # загрузка PDF-файла
         file.write(content)
 
 
-def test_download_xlsx_file():  # загрузка XLSX-файла
+def test_download_xlsx_file():  # загрузка xlsx-файла
     content = requests.get(
-        url='https://itsm365.com/documents_rus/web/Content/Resources/doc/import_ou_xlsx.xlsx/import_ou_xlsx.xlsx'
+        url='https://itsm365.com/documents_rus/web/Content/Resources/doc/import_ou_xlsx.xlsx'
     ).content
     with open(os.path.join(FILES_DIR, "file_xlsx.xlsx"), 'wb') as file:
         file.write(content)
 
 
-def test_download_csv_file():  # загрузка CSV-файла
+def test_download_csv_file():  # загрузка csv файла
     content = requests.get(
-        url='https://itsm365.com/documents_rus/web/Content/Resources/doc/import_ou_csv.csv'
+        url='https://cdn.wsform.com/wp-content/uploads/2020/06/color_srgb.csv'
     ).content
     with open(os.path.join(FILES_DIR, "file_csv.csv"), 'wb') as file:
         file.write(content)
